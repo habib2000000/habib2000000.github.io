@@ -148,7 +148,7 @@
             </div>
 
             <div class="legal-notice">
-                المطور: **habib2000000**<br>
+                المطور: <b>habib2000000</b><br>
                 نظام BM المدعوم بـ 3.14 تريليون توكن.<br>
                 السيولة مؤمنة بـ 300 Pi لكل دورة توسع.
             </div>
@@ -175,16 +175,19 @@
         }
 
         function syncWithCore() {
-            // التحقق من تحميل الدستور بنجاح
+            // مزامنة البيانات من ملف الدستور المركزي BM-Core
             if (window.BM_CORE) {
                 document.getElementById('core-status').innerText = "نظام BM متصل (3.14 تريليون) 🟢";
                 document.getElementById('user-reward').innerText = window.BM_CORE.GOVERNANCE_RULES.WELCOME_BONUS + " BM";
                 document.getElementById('multiplier-val').innerText = "×" + window.BM_CORE.GOVERNANCE_RULES.SUBSCRIPTION_MULTIPLIER;
                 document.getElementById('legacy-timer').innerText = `⏳ إرث أبدي: متبقي ${window.BM_CORE.LEGACY_SYSTEM.TOTAL_MONTHS} شهر`;
             } else {
+                // في حال عدم العثور على الدستور (تأكد من مسار المجلدات في GitHub)
                 document.getElementById('core-status').innerText = "فشل الاتصال بـ BM-Core 🔴";
+                console.error("تأكد من وجود مجلد BM-Core بجانب مجلد joy");
             }
         }
     </script>
 </body>
 </html>
+
