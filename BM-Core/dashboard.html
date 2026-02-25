@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الإرث الأبدي | BM Empire</title>
+    <script src="bm-core-engine.js"></script>
+    <style>
+        :root {
+            --gold: #ffcc00;
+            --dark: #121212;
+            --card: #1e1e1e;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .header {
+            padding: 40px 0;
+            border-bottom: 2px solid var(--gold);
+            margin-bottom: 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .stat-card {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .stat-card h3 { color: var(--gold); margin-top: 0; }
+        .number { font-size: 1.8em; font-weight: bold; margin: 15px 0; color: #fff; }
+        .sub-text { font-size: 0.9em; color: #888; }
+        
+        .legacy-timer {
+            background: linear-gradient(45deg, #1e1e1e, #2d2d2d);
+            padding: 40px;
+            margin-top: 30px;
+            border-radius: 15px;
+            border: 1px gold solid;
+        }
+        .progress-bar {
+            background: #333;
+            height: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: var(--gold);
+            height: 100%;
+            width: 0.1%; /* سيتغير برمجياً */
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>🏛️ لوحة تحكم السيادة المالية</h1>
+    <p>إدارة إرث إمبراطورية بي ام بيراميدز (94 عاماً وشهران)</p>
+</div>
+
+<div class="grid">
+    <div class="stat-card">
+        <h3>الإجمالي الكلي (Supply)</h3>
+        <div class="number" id="totalSupply">3.14 Trillion</div>
+        <div class="sub-text">تم تثبيته برمجياً في الدستور</div>
+    </div>
+
+    <div class="stat-card">
+        <h3>حوض السيولة الحالي</h3>
+        <div class="number" id="piLiquidity">300 Pi</div>
+        <div class="sub-text">مقابل كل 3.14 مليار توكر موزع</div>
+    </div>
+
+    <div class="stat-card">
+        <h3>توزيع السيادة (الأثلاث)</h3>
+        <div class="number">33.3% / 33.3% / 33.3%</div>
+        <div class="sub-text">المجتمع | المطورين | المالك</div>
+    </div>
+</div>
+
+<div class="legacy-timer">
+    <h3>⏳ عداد الإرث الأبدي</h3>
+    <div class="number" id="timeLeft">94 سنة و 2 شهر</div>
+    <p>الوقت المتبقي حتى انتهاء المرحلة الأولى (أبريل 2120)</p>
+    <div class="progress-bar">
+        <div class="progress-fill" id="bar"></div>
+    </div>
+</div>
+
+<script>
+    // وظيفة لتنسيق الأرقام الكبيرة
+    function formatNum(num) {
+        return new Intl.NumberFormat().format(num);
+    }
+
+    // تعبئة البيانات من ملف الـ Core
+    document.getElementById('totalSupply').innerText = formatNum(window.BM_CORE.CORE_SUPPLY) + " BM";
+    document.getElementById('piLiquidity').innerText = window.BM_CORE.REFILL_PROTOCOL.TOTAL_PI_RESERVE + " Pi";
+    
+    // حساب الوقت (تبسيط للعرض)
+    document.getElementById('timeLeft').innerText = "94 عاماً و 2 شهر";
+</script>
+
+</body>
+</html>
+
