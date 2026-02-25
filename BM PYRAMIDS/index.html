@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إمبراطورية بي ام بيراميدز | BM Pyramid Empire</title>
+    <style>
+        :root {
+            --primary-gold: #ffcc00;
+            --dark-bg: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #ffffff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+            width: 100%;
+            border-bottom: 2px solid var(--primary-gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        h1 { color: var(--primary-gold); margin: 0; font-size: 2.5em; }
+        .system-status { font-size: 0.9em; color: #888; margin-top: 10px; }
+        
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .app-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, border 0.3s;
+            border: 1px solid transparent;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+        .app-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-gold);
+            box-shadow: 0 10px 20px rgba(255, 204, 0, 0.2);
+        }
+        .app-icon { font-size: 40px; margin-bottom: 15px; display: block; }
+        .app-title { font-size: 1.5em; font-weight: bold; color: var(--primary-gold); }
+        .app-desc { font-size: 0.9em; color: #ccc; margin-top: 10px; }
+
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🏛️ إمبراطورية بي ام بيراميدز</h1>
+    <p>المحرك المركزي والمظلة الرسمية لرواد Pi Network</p>
+    <div class="system-status">الحالة: النظام متصل وجاري معالجة مكافآت الـ 3 أضعاف ⚡</div>
+</header>
+
+<div class="container">
+    <a href="./scanner" class="app-card">
+        <span class="app-icon">🔍</span>
+        <div class="app-title">BM Scanner</div>
+        <div class="app-desc">نظام المسح والدفع الذكي الموحد للمنظومة.</div>
+    </a>
+
+    <a href="./net" class="app-card">
+        <span class="app-icon">🌐</span>
+        <div class="app-title">BM NET & Services</div>
+        <div class="app-desc">بوابة الخدمات التقنية والربط البرمجي لـ BM.</div>
+    </a>
+
+    <a href="./joy" class="app-card">
+        <span class="app-icon">🎓</span>
+        <div class="app-title">متعة التعلم</div>
+        <div class="app-desc">القسم التعليمي المدعوم بالذكاء الاصطناعي (AI Joy).</div>
+    </a>
+
+    <a href="./manager" class="app-card">
+        <span class="app-icon">📊</span>
+        <div class="app-title">BM Manager</div>
+        <div class="app-desc">لوحة التحكم المركزية لإدارة الأرصدة والتوكنز.</div>
+    </a>
+</div>
+
+<footer>
+    &copy; 2026 BM Pyramid Empire - تدار بواسطة جيش رواد Pi Network
+</footer>
+
+</body>
+</html>
