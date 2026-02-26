@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منظومة BM الذكية - الإصدار المعتمد</title>
+    <title>منظومة BM الذكية - الإمبراطورية</title>
     
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
@@ -12,7 +12,6 @@
         :root { --ramadan-red: #8e0e14; --gold: #ffd700; --pi-purple: #541d72; }
         body { font-family: 'Cairo', sans-serif; background: #fffcf0; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
         
-        /* شاشة الترحيب اللي فيها "التكاية" */
         #welcome-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: linear-gradient(135deg, var(--ramadan-red), var(--pi-purple)); 
@@ -20,7 +19,7 @@
             z-index: 2000; color: white; text-align: center;
         }
         
-        /* الزرار الأصفر اللي بيخلص الكلام بضغطة واحدة */
+        /* المربع الأصفر اللي فيه التكاية */
         .joy-btn { 
             background: var(--gold); color: #8e0e14; border: none; 
             padding: 25px 45px; border-radius: 60px; font-size: 1.4rem; 
@@ -29,9 +28,9 @@
         }
 
         #main-content { display: none; width: 95%; max-width: 420px; text-align: center; }
-        .main-card { background: white; border-radius: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); overflow: hidden; border: 2px solid var(--gold); }
+        .main-card { background: white; border-radius: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); border: 2px solid var(--gold); overflow: hidden; }
         .hero-area { background: var(--pi-purple); color: white; padding: 40px 20px; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; }
-        .user-box { background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 25px; display: inline-block; margin-top: 15px; font-weight: bold; border: 1px solid var(--gold); }
+        .user-box { background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 25px; display: inline-block; margin-top: 15px; font-weight: bold; }
 
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
@@ -43,15 +42,14 @@
     </audio>
 
     <div id="welcome-overlay">
-        <div style="font-size: 3.5rem; margin-bottom: 10px;">🌙</div>
-        <h1 style="margin-bottom: 30px;">Learning Joy AI</h1>
+        <h1 style="font-size: 2.2rem; margin-bottom: 30px;">Learning Joy AI 🌙</h1>
         
         <button class="joy-btn" id="start-btn">
             دخول مباشر للإمبراطورية 🎶
             <span style="display:block; font-size:0.75rem; opacity:0.8; margin-top:5px;">aibcbecb7115.pinet.com</span>
         </button>
         
-        <p style="margin-top: 25px; font-size: 0.9rem; opacity: 0.8;">تم تفعيل نظام الدخول الذكي ✅</p>
+        <p style="margin-top: 25px; font-size: 0.9rem; opacity: 0.8;">تم تظبيط "التكاية" بنجاح ✅</p>
     </div>
 
     <div id="main-content">
@@ -62,15 +60,12 @@
             </div>
             
             <div style="padding: 30px;">
-                <h3 style="color: var(--ramadan-red); margin-bottom: 10px;">🎉 النجاح أحلى هدية</h3>
-                <p style="color: #444;">مرحباً بك في عالم الـ 94 عاماً. نظام الـ 3 أضعاف نشط الآن لجميع الرواد.</p>
-                <div style="background: #fff9e6; border: 1px dashed var(--gold); padding: 15px; border-radius: 20px; margin-top: 15px; color: #856404;">
-                    💰 محفظة BM: متصلة وجاهزة
-                </div>
+                <h3 style="color: var(--ramadan-red);">🎉 النجاح أحلى هدية</h3>
+                <p>مرحباً بك في عالم الـ 94 عاماً. نظام الـ 3 أضعاف نشط الآن.</p>
             </div>
 
             <div style="padding: 15px; font-size: 0.7rem; color: #aaa; background: #fafafa; border-top: 1px solid #eee;">
-                المطوّر: habib2000000 | إمبراطورية BM الموثقة
+                المطور: habib2000000 | إمبراطورية BM
             </div>
         </div>
     </div>
@@ -80,37 +75,29 @@
         const startBtn = document.getElementById('start-btn');
         const Pi = window.Pi;
 
-        // التكاية 1: التهيئة المبكرة جداً
+        // التكاية: التهيئة الفورية للـ SDK
         if (Pi) {
             Pi.init({ version: "2.0", sandbox: false });
         }
 
         startBtn.addEventListener('click', async function() {
-            // التكاية 2: تشغيل الصوت فوراً قبل أي حاجة
-            audio.play().catch(() => {});
+            // شغل الأغنية فوراً
+            audio.play().catch(e => console.log("الصوت يعمل"));
 
-            // التكاية 3: الدخول الصامت (التوثيق) والانتقال اللحظي
+            // الدخول الصامت والمباشر اللي أنت عايزه
+            document.getElementById("welcome-overlay").style.display = "none";
+            document.getElementById("main-content").style.display = "block";
+
             try {
-                // إخفاء شاشة الدخول فوراً
-                document.getElementById("welcome-overlay").style.display = "none";
-                document.getElementById("main-content").style.display = "block";
-
                 if (Pi) {
                     const auth = await Pi.authenticate(['username'], (payment) => {});
                     document.getElementById('user-display').innerText = "مرحباً يا رائد: " + auth.user.username;
                 }
             } catch (err) {
-                // لو في أي مشكلة يفتح برضه عشان العميل ميحسش بعطل
-                console.log("Direct access enabled");
+                console.log("Direct Mode Active");
             }
         });
     </script>
 </body>
 </html>
-            } catch (err) {
-                document.getElementById('user-display').innerText = "وضع المعاينة النشط 🛡️";
-            }
-        });
-    </script>
-</body>
-</html>
+
