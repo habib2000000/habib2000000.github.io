@@ -3,18 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منظومة BM الذكية - Joy Edition</title>
+    <title>منظومة BM الذكية - النسخة الرسمية</title>
     
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        :root { --pi-purple: #541d72; --gold: #ffd700; --ramadan-red: #8e0e14; }
-        body { font-family: 'Cairo', sans-serif; background: #fdfbfb; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
+        :root { 
+            --pi-purple: #541d72; 
+            --gold: #ffd700; 
+            --ramadan-red: #8e0e14; 
+        }
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background: #fdfbfb; 
+            margin: 0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh; 
+            overflow: hidden; 
+        }
         
-        #welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--ramadan-red), var(--pi-purple)); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; color: white; text-align: center; }
+        /* شاشة الترحيب الإمبراطورية */
+        #welcome-overlay { 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: linear-gradient(135deg, var(--ramadan-red), var(--pi-purple)); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 2000; 
+            color: white; 
+            text-align: center; 
+            padding: 20px;
+        }
         
-        /* الزر الذهبي الاحترافي بالرابط الرسمي */
+        /* الزر الذهبي المدمج بالرابط الرسمي */
         .joy-btn { 
             background: var(--gold); 
             color: #8e0e14; 
@@ -28,14 +56,57 @@
             transition: 0.3s;
             animation: pulse 2s infinite;
         }
-        .joy-btn span { display: block; font-size: 0.8rem; opacity: 0.8; margin-top: 5px; text-decoration: underline; }
+        .joy-btn span { 
+            display: block; 
+            font-size: 0.8rem; 
+            opacity: 0.9; 
+            margin-top: 5px; 
+            text-decoration: underline; 
+        }
 
-        #main-content { display: none; width: 95%; max-width: 420px; text-align: center; opacity: 0; transition: 1s; }
-        .main-card { background: white; border-radius: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); overflow: hidden; border: 1px solid #eee; }
-        .hero-area { background: var(--pi-purple); color: white; padding: 40px 20px; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; }
+        /* واجهة التطبيق بعد الدخول */
+        #main-content { 
+            display: none; 
+            width: 95%; 
+            max-width: 420px; 
+            text-align: center; 
+            opacity: 0; 
+            transition: 1s; 
+        }
+        .main-card { 
+            background: white; 
+            border-radius: 40px; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15); 
+            overflow: hidden; 
+            border: 1px solid #eee; 
+        }
+        .hero-area { 
+            background: var(--pi-purple); 
+            color: white; 
+            padding: 40px 20px; 
+            border-bottom-left-radius: 60px; 
+            border-bottom-right-radius: 60px; 
+        }
         
-        .shield-icon { font-size: 1.2rem; margin-bottom: 10px; display: block; }
-        .private-notice { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 15px; margin: 15px; border: 1px solid #c8e6c9; font-size: 0.85rem; }
+        .private-badge { 
+            background: #e8f5e9; 
+            color: #2e7d32; 
+            padding: 15px; 
+            border-radius: 15px; 
+            margin: 15px; 
+            border: 1px solid #c8e6c9; 
+            font-size: 0.85rem; 
+        }
+
+        .triple-badge {
+            background: #fff4e6;
+            border: 2px dashed #ff9800;
+            margin: 15px;
+            padding: 20px;
+            border-radius: 25px;
+            color: #e65100;
+            font-weight: bold;
+        }
 
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
     </style>
@@ -49,7 +120,7 @@
     <div id="welcome-overlay">
         <h1 style="font-size: 2.2rem; margin-bottom: 25px;">Learning Joy AI 🌙</h1>
         
-        <button class="joy-btn" id="start-btn">
+        <button class="joy-btn" id="start-btn" style="display:none;">
             دخول المنظومة واستماع النجاح 🎶
             <span>aibcbecb7115.pinet.com</span>
         </button>
@@ -60,20 +131,24 @@
     <div id="main-content">
         <div class="main-card">
             <div class="hero-area">
-                <span class="shield-icon">🛡️</span>
+                <span style="font-size: 1.5rem;">🛡️</span>
                 <h2 style="margin:0;">منظومة BM الذكية</h2>
-                <p style="font-size: 0.8rem; opacity: 0.9; margin-top: 5px;">الجلسة مشفرة ومؤمنة</p>
+                <p id="user-display" style="font-size: 0.8rem; opacity: 0.9; margin-top: 5px;">الجلسة مشفرة ومؤمنة</p>
             </div>
             
-            <div class="private-notice">🔒 الخصوصية: بياناتك سرية بالكامل ولا تظهر للعامة</div>
+            <div class="private-badge">🔒 وضع الخصوصية: بياناتك سرية ولا تظهر للعامة</div>
             
-            <div style="padding: 25px; color: #444;">
-                <h3 style="color: var(--ramadan-red); margin-bottom: 10px;">🎉 النجاح أحلى هدية</h3>
-                <p style="font-size: 0.95rem;">تم تفعيل بونص الـ 3 أضعاف لرواد الموبايل</p>
+            <div class="triple-badge">
+                🎉 النجاح أحلى هدية: بونص 3 أضعاف نشط!
+            </div>
+
+            <div style="padding: 10px 20px 25px; color: #444; font-size: 0.95rem;">
+                أهلاً بك في إمبراطورية الـ 94 عاماً<br>
+                كل شيء جاهز للإنطلاق..
             </div>
 
             <div style="padding: 15px; font-size: 0.7rem; color: #aaa; background: #fafafa; border-top: 1px solid #eee;">
-                المطور المعتمد: habib2000000 | إرث الـ 94 عاماً
+                المطور المعتمد: habib2000000 | pinet.com
             </div>
         </div>
     </div>
@@ -83,32 +158,35 @@
         const startBtn = document.getElementById('start-btn');
         const checkText = document.getElementById('check-text');
 
-        // 1. فحص الجهاز (منع الكمبيوتر)
+        // 1. فحص الجهاز: موبايل يدخل، كمبيوتر لا
         window.onload = function() {
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
-                checkText.innerText = "تم التحقق: جهاز موبايل آمن ✅";
+                checkText.innerText = "تم التحقق: جهاز آمن ✅";
                 startBtn.style.display = "block";
             } else {
-                startBtn.style.display = "none";
-                checkText.innerHTML = "<b style='color:var(--gold); font-size:1.1rem;'>⚠️ عذراً: المنظومة مخصصة للموبايل فقط.</b>";
+                checkText.innerHTML = "<b style='color:var(--gold); font-size:1.1rem;'>⚠️ عذراً: المنظومة للموبايل فقط.</b>";
                 alert("يرجى استخدام متصفح Pi على الموبايل للدخول.");
             }
         };
 
-        // 2. تفعيل الصوت والدخول بلمسة واحدة
+        // 2. تشغيل الأغنية والدخول عند الضغط
         startBtn.addEventListener('click', function() {
-            // تشغيل Joy.mp3 فوراً
-            audio.play().catch(() => console.log("تحتاج إذن تشغيل"));
+            // تشغيل Joy.mp3
+            audio.play().catch(e => console.log("الصوت مفعل بضغطة المستخدم"));
 
+            // إخفاء الترحيب وإظهار التطبيق
             document.getElementById("welcome-overlay").style.display = "none";
             document.getElementById("main-content").style.display = "block";
             setTimeout(() => document.getElementById("main-content").style.opacity = "1", 50);
 
-            // تفعيل Pi SDK
+            // تفعيل Pi SDK لضمان العمل داخل pinet.com
             if (window.Pi) {
                 window.Pi.init({ version: "2.0", sandbox: false });
-                window.Pi.authenticate(['username'], () => {}).catch(() => {});
+                window.Pi.authenticate(['username'], () => {}).then(auth => {
+                    // الاسم يظهر لك وحدك في واجهتك لضمان الخصوصية
+                    document.getElementById('user-display').innerText = "مرحباً بك: " + auth.user.username;
+                }).catch(() => {});
             }
         });
     </script>
