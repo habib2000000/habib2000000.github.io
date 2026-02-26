@@ -3,210 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Joy with AI - Official BM System</title>
+    <title>Learning Joy AI - Official BM System</title>
     
     <script src="../BM-Core/bm-core-engine.js"></script>
-    
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        :root { 
-            --pi-purple: #541d72; 
-            --gold: #ffd700; 
-            --ramadan-red: #8e0e14; 
-            --soft-bg: #fdfbfb; 
-        }
-        body { 
-            font-family: 'Cairo', sans-serif; 
-            background: var(--soft-bg); 
-            margin: 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            min-height: 100vh; 
-        }
+        :root { --pi-purple: #541d72; --gold: #ffd700; --ramadan-red: #8e0e14; }
+        body { font-family: 'Cairo', sans-serif; background: #fdfbfb; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
         
-        /* شاشة الترحيب */
-        #welcome-overlay { 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: linear-gradient(135deg, var(--ramadan-red), var(--pi-purple)); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            z-index: 2000; 
-            color: white; 
-            transition: 0.8s; 
-            text-align: center;
-        }
-        .play-btn { 
-            background: var(--gold); 
-            color: #8e0e14; 
-            border: none; 
-            padding: 18px 50px; 
-            border-radius: 50px; 
-            font-size: 1.5rem; 
-            font-weight: bold; 
-            cursor: pointer; 
-            animation: pulse 2s infinite; 
-        }
+        #welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--ramadan-red), var(--pi-purple)); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; color: white; text-align: center; }
+        .play-btn { background: var(--gold); color: #8e0e14; border: none; padding: 20px 60px; border-radius: 50px; font-size: 1.6rem; font-weight: bold; cursor: pointer; animation: pulse 2s infinite; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
 
-        /* البطاقة الرئيسية */
-        #main-content { 
-            display: none; 
-            width: 90%; 
-            max-width: 420px; 
-            opacity: 0; 
-            transition: 1s; 
-        }
-        .main-card { 
-            background: white; 
-            border-radius: 35px; 
-            box-shadow: 0 20px 45px rgba(0,0,0,0.1); 
-            overflow: hidden; 
-            text-align: center; 
-            border: 1px solid #eee; 
-        }
-        .hero-area { 
-            background: var(--pi-purple); 
-            color: white; 
-            padding: 35px 15px; 
-            border-bottom-left-radius: 50px; 
-            border-bottom-right-radius: 50px; 
-        }
+        #main-content { display: none; width: 90%; max-width: 420px; text-align: center; }
+        .main-card { background: white; border-radius: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); overflow: hidden; border: 1px solid #eee; }
+        .hero-area { background: var(--pi-purple); color: white; padding: 40px 20px; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; }
         
-        /* مربع عرض الـ 3 أضعاف */
-        .triple-bonus-badge {
-            background: #fff4e6;
-            border: 2px dashed #ff9800;
-            margin: 15px;
-            padding: 12px;
-            border-radius: 20px;
-            color: #e65100;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
+        .private-badge { background: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 15px; font-size: 0.8rem; margin: 10px; border: 1px solid #c8e6c9; }
+        .badge-3x { background: #fff4e6; border: 2px dashed #ff9800; margin: 20px; padding: 15px; border-radius: 25px; color: #e65100; font-weight: bold; }
 
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 20px; }
-        .stat-box { background: #f8f4ff; padding: 12px; border-radius: 15px; border: 1px solid #e9dcfc; }
-        .stat-val { display: block; font-size: 1.3rem; font-weight: bold; color: var(--pi-purple); }
-
-        .btn-action { 
-            display: block; 
-            width: 85%; 
-            margin: 15px auto; 
-            background: linear-gradient(45deg, #bc13fe, #7a01bb); 
-            color: white; 
-            text-decoration: none; 
-            padding: 18px; 
-            border-radius: 40px; 
-            font-size: 1.2rem; 
-            font-weight: bold; 
-            border: none;
-            cursor: pointer;
-        }
-        .footer-info { font-size: 0.7rem; color: #999; padding: 15px; background: #fafafa; border-top: 1px solid #eee; }
+        .btn-pay { display: block; width: 85%; margin: 20px auto; background: linear-gradient(45deg, #bc13fe, #7a01bb); color: white; padding: 20px; border-radius: 40px; font-size: 1.3rem; font-weight: bold; border: none; cursor: pointer; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
 
+    <audio id="audio-player" loop><source src="welcome.mp3" type="audio/mpeg"></audio>
+
     <div id="welcome-overlay">
         <h1>Learning Joy AI 🌙</h1>
-        <p>إمبراطورية BM - إرث الـ 94.2 عاماً</p>
-        <button class="play-btn" onclick="startApp()">دخول الاستوديو ▶️</button>
+        <p>نظام إمبراطورية BM الموثق</p>
+        <p style="font-size: 0.8rem;">aibcbecb7115.pinet.com</p>
+        <br>
+        <button class="play-btn" onclick="activateEmpire()">دخول آمن واستماع 🎶</button>
     </div>
 
     <div id="main-content">
         <div class="main-card">
             <div class="hero-area">
                 <h2 style="margin:0;">منظومة BM الذكية</h2>
-                <p id="user-display" style="opacity: 0.9; font-size: 0.9rem;">جاري التحقق من هوية الرائد...</p>
+                <p id="user-display" style="font-size: 0.9rem; margin-top: 10px; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px;">جاري تأمين الجلسة...</p>
             </div>
 
-            <div class="triple-bonus-badge">
-                🔥 تفعيل قانون الإمبراطورية: بونص 3 أضعاف (300%) نشط الآن!
-            </div>
+            <div class="private-badge">🔒 وضع الخصوصية نشط: بياناتك لا تظهر للعامة</div>
 
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <span class="stat-val" id="reward-val">3.14 BM</span>
-                    <small>بونص الترحيب</small>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-val">300%</span>
-                    <small>معدل المضاعفة</small>
-                </div>
-            </div>
+            <div class="badge-3x">🔥 بونص الـ 3 أضعاف متاح لك الآن</div>
 
-            <button onclick="requestTripleBonus(1)" class="btn-action">اشتراك واستلام الـ 3 أضعاف 🚀</button>
+            <button onclick="sendPayment(1)" class="btn-pay">تفعيل الاشتراك (1 Pi) 🚀</button>
 
-            <div class="footer-info">
-                المطور: <b>habib2000000</b> | سيولة النظام: 300 Pi<br>
-                هذا التطبيق متصل رسمياً بدستور BM-Core المركزي.
+            <div style="padding: 20px; font-size: 0.75rem; color: #888; line-height: 1.5;">
+                المطور: habib2000000<br>
+                سيولة النظام مؤمنة | إرث الـ 94 عاماً
             </div>
         </div>
     </div>
 
     <script>
-        // 1. تهيئة Pi SDK للعمل داخل الاستوديو
+        const audio = document.getElementById('audio-player');
         const Pi = window.Pi;
         Pi.init({ version: "2.0", sandbox: false });
 
-        // 2. دالة بدء التطبيق والمصادقة
-        async function startApp() {
-            // إخفاء الترحيب وإظهار المحتوى
+        async function activateEmpire() {
+            audio.play().catch(() => {});
             document.getElementById("welcome-overlay").style.opacity = "0";
             setTimeout(() => {
                 document.getElementById("welcome-overlay").style.display = "none";
-                const main = document.getElementById("main-content");
-                main.style.display = "block";
-                setTimeout(() => main.style.opacity = "1", 50);
+                document.getElementById("main-content").style.display = "block";
+                setTimeout(() => document.getElementById("main-content").style.opacity = "1", 50);
             }, 800);
 
-            // طلب الهوية من Pi Network
+            // تأمين الهوية: الاسم يظهر للمستخدم فقط في واجهته
             try {
-                const scopes = ['username', 'payments', 'wallet_address'];
-                const auth = await Pi.authenticate(scopes, onIncompletePaymentFound);
-                document.getElementById('user-display').innerText = `أهلاً بك يا رائد: ${auth.user.username}`;
-                
-                // مزامنة البيانات من الدستور
-                if (window.BM_CORE) {
-                    document.getElementById('reward-val').innerText = window.BM_CORE.GOVERNANCE_RULES.WELCOME_BONUS + " BM";
-                }
+                const auth = await Pi.authenticate(['username'], () => {});
+                document.getElementById('user-display').innerText = `مرحباً بك: ${auth.user.username} 🛡️`;
             } catch (e) {
-                document.getElementById('user-display').innerText = "تم الدخول كضيف (افتح من Pi Browser)";
+                document.getElementById('user-display').innerText = "دخول آمن (Guest)";
             }
         }
 
-        // 3. دالة تنفيذ قانون الـ 3 أضعاف (الدفع والاستقبال)
-        async function requestTripleBonus(amountPi) {
+        async function sendPayment(amt) {
             try {
-                const payment = await Pi.createPayment({
-                    amount: amountPi,
-                    memo: `اشتراك إمبراطورية BM - ستحصل على ${amountPi * 3} BM`,
+                await Pi.createPayment({
+                    amount: amt,
+                    memo: `اشتراك آمن - استلام 3 أضعاف توكنز BM`,
                     metadata: { multiplier: 3 }
                 }, {
-                    onReadyForServerApproval: (paymentId) => { console.log("بانتظار الموافقة..."); },
-                    onReadyForServerCompletion: (paymentId, txid) => { 
-                        alert(`✅ تم التحويل! سيتم إضافة ${amountPi * 3} BM Token لمحفظتك المحمية.`);
-                    },
-                    onCancel: (paymentId) => { console.log("تم الإلغاء"); },
-                    onError: (error, payment) => { console.error("خطأ!", error); }
+                    onReadyForServerApproval: (id) => {},
+                    onReadyForServerCompletion: (id, tx) => alert("تمت العملية بنجاح!"),
+                    onCancel: (id) => {},
+                    onError: (err) => {}
                 });
-            } catch (err) {
-                console.error("فشل نظام الدفع", err);
-            }
-        }
-
-        function onIncompletePaymentFound(payment) {
-            // معالجة المدفوعات المعلقة لضمان حق الرائد
+            } catch (err) {}
         }
     </script>
 </body>
 </html>
+
