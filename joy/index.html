@@ -3,101 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Joy AI - Official BM System</title>
+    <title>Learning Joy AI - BM Empire Official</title>
     
-    <script src="../BM-Core/bm-core-engine.js"></script>
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { --pi-purple: #541d72; --gold: #ffd700; --ramadan-red: #8e0e14; }
-        body { font-family: 'Cairo', sans-serif; background: #fdfbfb; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+        body { font-family: 'Cairo', sans-serif; background: #fdfbfb; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
         
+        /* شاشة الترحيب الإمبراطورية */
         #welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--ramadan-red), var(--pi-purple)); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; color: white; text-align: center; }
         .play-btn { background: var(--gold); color: #8e0e14; border: none; padding: 20px 60px; border-radius: 50px; font-size: 1.6rem; font-weight: bold; cursor: pointer; animation: pulse 2s infinite; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
 
-        #main-content { display: none; width: 90%; max-width: 420px; text-align: center; }
+        /* واجهة التطبيق الرئيسية */
+        #main-content { display: none; width: 90%; max-width: 420px; text-align: center; opacity: 0; transition: 1s; }
         .main-card { background: white; border-radius: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); overflow: hidden; border: 1px solid #eee; }
         .hero-area { background: var(--pi-purple); color: white; padding: 40px 20px; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; }
         
-        .private-badge { background: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 15px; font-size: 0.8rem; margin: 10px; border: 1px solid #c8e6c9; }
-        .badge-3x { background: #fff4e6; border: 2px dashed #ff9800; margin: 20px; padding: 15px; border-radius: 25px; color: #e65100; font-weight: bold; }
+        .status-badge { background: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 15px; font-size: 0.8rem; margin: 15px; border: 1px solid #c8e6c9; }
+        .triple-badge { background: #fff4e6; border: 2px dashed #ff9800; margin: 15px; padding: 15px; border-radius: 20px; color: #e65100; font-weight: bold; }
 
-        .btn-pay { display: block; width: 85%; margin: 20px auto; background: linear-gradient(45deg, #bc13fe, #7a01bb); color: white; padding: 20px; border-radius: 40px; font-size: 1.3rem; font-weight: bold; border: none; cursor: pointer; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
 
-    <audio id="audio-player" loop><source src="welcome.mp3" type="audio/mpeg"></audio>
+    <audio id="audio-player" preload="auto" loop>
+        <source src="Hamada Helal - El Nagah Ahla Hedeya(Official Video) _ حماده هلال - النجاح أحلي هدية - الكليب الرسمي _ (MP3_160K).mp3" type="audio/mpeg">
+    </audio>
 
     <div id="welcome-overlay">
-        <h1>Learning Joy AI 🌙</h1>
-        <p>نظام إمبراطورية BM الموثق</p>
-        <p style="font-size: 0.8rem;">aibcbecb7115.pinet.com</p>
+        <h1 style="font-size: 2.2rem; margin-bottom: 5px;">Learning Joy AI 🌙</h1>
+        <p>إمبراطورية BM - الرابط الرسمي الموثق</p>
+        <p style="font-size: 0.7rem; opacity: 0.8;">aibcbecb7115.pinet.com</p>
         <br>
-        <button class="play-btn" onclick="activateEmpire()">دخول آمن واستماع 🎶</button>
+        <button class="play-btn" id="start-btn">دخول واستماع 🎶</button>
     </div>
 
     <div id="main-content">
         <div class="main-card">
             <div class="hero-area">
                 <h2 style="margin:0;">منظومة BM الذكية</h2>
-                <p id="user-display" style="font-size: 0.9rem; margin-top: 10px; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px;">جاري تأمين الجلسة...</p>
+                <p id="user-display" style="font-size: 0.9rem; margin-top: 10px; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px;">🛡️ الجلسة مؤمنة بالكامل</p>
             </div>
 
-            <div class="private-badge">🔒 وضع الخصوصية نشط: بياناتك لا تظهر للعامة</div>
+            <div class="status-badge">🔒 خصوصيتك محمية: بياناتك سرية ولا تظهر للعامة</div>
 
-            <div class="badge-3x">🔥 بونص الـ 3 أضعاف متاح لك الآن</div>
+            <div class="triple-badge">
+                🎉 النجاح أحلى هدية: بونص 3 أضعاف نشط!
+            </div>
 
-            <button onclick="sendPayment(1)" class="btn-pay">تفعيل الاشتراك (1 Pi) 🚀</button>
+            <div style="padding: 20px;">
+                <p style="color: #666; font-size: 0.9rem;">أهلاً بك في إمبراطورية الـ 94 عاماً</p>
+            </div>
 
-            <div style="padding: 20px; font-size: 0.75rem; color: #888; line-height: 1.5;">
-                المطور: habib2000000<br>
-                سيولة النظام مؤمنة | إرث الـ 94 عاماً
+            <div style="padding: 10px; font-size: 0.7rem; color: #aaa; background: #fafafa;">
+                المطور: habib2000000 | حوض السيولة: 300 Pi
             </div>
         </div>
     </div>
 
     <script>
         const audio = document.getElementById('audio-player');
-        const Pi = window.Pi;
-        Pi.init({ version: "2.0", sandbox: false });
+        const startBtn = document.getElementById('start-btn');
 
-        async function activateEmpire() {
-            audio.play().catch(() => {});
+        startBtn.addEventListener('click', function() {
+            // تشغيل الأغنية فوراً
+            audio.play().catch(e => console.log("الصوت يحتاج إذن المتصفح"));
+
+            // الانتقال للواجهة
             document.getElementById("welcome-overlay").style.opacity = "0";
             setTimeout(() => {
                 document.getElementById("welcome-overlay").style.display = "none";
-                document.getElementById("main-content").style.display = "block";
-                setTimeout(() => document.getElementById("main-content").style.opacity = "1", 50);
+                const content = document.getElementById("main-content");
+                content.style.display = "block";
+                setTimeout(() => content.style.opacity = "1", 50);
             }, 800);
 
-            // تأمين الهوية: الاسم يظهر للمستخدم فقط في واجهته
+            // تشغيل خدمات Pi
+            initPi();
+        });
+
+        async function initPi() {
             try {
+                const Pi = window.Pi;
+                Pi.init({ version: "2.0", sandbox: false });
                 const auth = await Pi.authenticate(['username'], () => {});
+                // الاسم يظهر لك وحدك في شاشتك فقط لضمان الخصوصية
                 document.getElementById('user-display').innerText = `مرحباً بك: ${auth.user.username} 🛡️`;
             } catch (e) {
-                document.getElementById('user-display').innerText = "دخول آمن (Guest)";
+                console.log("الفتح عبر Pi Browser مطلوب");
             }
-        }
-
-        async function sendPayment(amt) {
-            try {
-                await Pi.createPayment({
-                    amount: amt,
-                    memo: `اشتراك آمن - استلام 3 أضعاف توكنز BM`,
-                    metadata: { multiplier: 3 }
-                }, {
-                    onReadyForServerApproval: (id) => {},
-                    onReadyForServerCompletion: (id, tx) => alert("تمت العملية بنجاح!"),
-                    onCancel: (id) => {},
-                    onError: (err) => {}
-                });
-            } catch (err) {}
         }
     </script>
 </body>
 </html>
-
