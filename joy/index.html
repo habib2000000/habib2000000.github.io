@@ -3,80 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منظومة BM الذكية</title>
+    <title>منظومة BM الذكية - Joy Edition</title>
+    
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root { --pi-purple: #541d72; --gold: #ffd700; --ramadan-red: #8e0e14; }
         body { font-family: 'Cairo', sans-serif; background: #fdfbfb; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
+        
         #welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--ramadan-red), var(--pi-purple)); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; color: white; text-align: center; }
-        .official-link-btn { background: var(--gold); color: #8e0e14; border: none; padding: 22px 40px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; cursor: pointer; box-shadow: 0 15px 30px rgba(0,0,0,0.4); animation: pulse 2s infinite; }
-        #main-content { display: none; width: 95%; max-width: 420px; text-align: center; }
+        
+        /* الزر الذهبي الاحترافي بالرابط الرسمي */
+        .joy-btn { 
+            background: var(--gold); 
+            color: #8e0e14; 
+            border: none; 
+            padding: 22px 50px; 
+            border-radius: 50px; 
+            font-size: 1.3rem; 
+            font-weight: bold; 
+            cursor: pointer; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            animation: pulse 2s infinite;
+        }
+        .joy-btn span { display: block; font-size: 0.8rem; opacity: 0.8; margin-top: 5px; text-decoration: underline; }
+
+        #main-content { display: none; width: 95%; max-width: 420px; text-align: center; opacity: 0; transition: 1s; }
         .main-card { background: white; border-radius: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); overflow: hidden; border: 1px solid #eee; }
         .hero-area { background: var(--pi-purple); color: white; padding: 40px 20px; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; }
+        
+        .shield-icon { font-size: 1.2rem; margin-bottom: 10px; display: block; }
+        .private-notice { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 15px; margin: 15px; border: 1px solid #c8e6c9; font-size: 0.85rem; }
+
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
 
-    <audio id="success-audio" loop preload="auto" playsinline>
-        <source src="Hamada Helal - El Nagah Ahla Hedeya(Official Video) _ حماده هلال - النجاح أحلي هدية - الكليب الرسمي _ (MP3_160K).mp3" type="audio/mpeg">
+    <audio id="joy-audio" loop preload="auto" playsinline>
+        <source src="Joy.mp3" type="audio/mpeg">
     </audio>
 
     <div id="welcome-overlay">
-        <h1 style="font-size: 2rem; margin-bottom: 25px;">Learning Joy AI 🌙</h1>
-        <button class="official-link-btn" id="start-btn">
-            دخول المنظومة وتشغيل النجاح 🎶
-            <span style="display:block; font-size:0.8rem; opacity:0.8;">aibcbecb7115.pinet.com</span>
+        <h1 style="font-size: 2.2rem; margin-bottom: 25px;">Learning Joy AI 🌙</h1>
+        
+        <button class="joy-btn" id="start-btn">
+            دخول المنظومة واستماع النجاح 🎶
+            <span>aibcbecb7115.pinet.com</span>
         </button>
-        <p id="device-msg" style="margin-top: 20px; font-size: 0.85rem; opacity: 0.9;">فحص أمان الجهاز...</p>
+
+        <p id="check-text" style="margin-top: 25px; font-size: 0.9rem; opacity: 0.9;">جاري فحص أمان المنظومة...</p>
     </div>
 
     <div id="main-content">
         <div class="main-card">
             <div class="hero-area">
+                <span class="shield-icon">🛡️</span>
                 <h2 style="margin:0;">منظومة BM الذكية</h2>
-                <div style="background: rgba(255,255,255,0.1); padding: 8px; border-radius: 20px; margin-top: 10px; font-size: 0.8rem;">🛡️ وضع الخصوصية نشط</div>
+                <p style="font-size: 0.8rem; opacity: 0.9; margin-top: 5px;">الجلسة مشفرة ومؤمنة</p>
             </div>
-            <div style="padding: 20px;">
-                <h3 style="color: var(--ramadan-red);">🎉 النجاح أحلى هدية</h3>
-                <p>تم التفعيل بنجاح على الموبايل</p>
+            
+            <div class="private-notice">🔒 الخصوصية: بياناتك سرية بالكامل ولا تظهر للعامة</div>
+            
+            <div style="padding: 25px; color: #444;">
+                <h3 style="color: var(--ramadan-red); margin-bottom: 10px;">🎉 النجاح أحلى هدية</h3>
+                <p style="font-size: 0.95rem;">تم تفعيل بونص الـ 3 أضعاف لرواد الموبايل</p>
+            </div>
+
+            <div style="padding: 15px; font-size: 0.7rem; color: #aaa; background: #fafafa; border-top: 1px solid #eee;">
+                المطور المعتمد: habib2000000 | إرث الـ 94 عاماً
             </div>
         </div>
     </div>
 
     <script>
-        const audio = document.getElementById('success-audio');
+        const audio = document.getElementById('joy-audio');
         const startBtn = document.getElementById('start-btn');
+        const checkText = document.getElementById('check-text');
 
-        // 1. كود كشف الجهاز (منع الكمبيوتر)
+        // 1. فحص الجهاز (منع الكمبيوتر)
         window.onload = function() {
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            if (!isMobile) {
-                document.getElementById('device-msg').innerHTML = "<b style='color:var(--gold)'>⚠️ عذراً: المنظومة للموبايل فقط.</b>";
-                startBtn.style.display = "none";
+            if (isMobile) {
+                checkText.innerText = "تم التحقق: جهاز موبايل آمن ✅";
+                startBtn.style.display = "block";
             } else {
-                document.getElementById('device-msg').innerText = "جهاز موبايل آمن ✅";
+                startBtn.style.display = "none";
+                checkText.innerHTML = "<b style='color:var(--gold); font-size:1.1rem;'>⚠️ عذراً: المنظومة مخصصة للموبايل فقط.</b>";
+                alert("يرجى استخدام متصفح Pi على الموبايل للدخول.");
             }
         };
 
-        // 2. السر الحقيقي لتشغيل الصوت في الموبايل (User Interaction)
+        // 2. تفعيل الصوت والدخول بلمسة واحدة
         startBtn.addEventListener('click', function() {
-            // محاولة التشغيل بأكثر من طريقة لضمان النجاح في Pi Browser
-            audio.play(); 
-            
-            // إخفاء الشاشة
+            // تشغيل Joy.mp3 فوراً
+            audio.play().catch(() => console.log("تحتاج إذن تشغيل"));
+
             document.getElementById("welcome-overlay").style.display = "none";
             document.getElementById("main-content").style.display = "block";
             setTimeout(() => document.getElementById("main-content").style.opacity = "1", 50);
 
             // تفعيل Pi SDK
             if (window.Pi) {
-                Pi.init({ version: "2.0", sandbox: false });
-                Pi.authenticate(['username'], () => {}).catch(() => {});
+                window.Pi.init({ version: "2.0", sandbox: false });
+                window.Pi.authenticate(['username'], () => {}).catch(() => {});
             }
         });
     </script>
 </body>
 </html>
-
