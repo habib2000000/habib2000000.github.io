@@ -3,31 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منظومة BM الذكية</title>
+    <title>منظومة BM الذكية - Official Link</title>
+    
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root { --pi-purple: #541d72; --gold: #ffd700; --ramadan-red: #8e0e14; }
         body { font-family: 'Cairo', sans-serif; background: #fdfbfb; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
+        
+        /* شاشة الترحيب الرسمية */
         #welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--ramadan-red), var(--pi-purple)); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; color: white; text-align: center; }
-        .play-btn { background: var(--gold); color: #8e0e14; border: none; padding: 20px 60px; border-radius: 50px; font-size: 1.6rem; font-weight: bold; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        #main-content { display: none; width: 90%; max-width: 420px; text-align: center; }
+        .play-btn { background: var(--gold); color: #8e0e14; border: none; padding: 20px 60px; border-radius: 50px; font-size: 1.6rem; font-weight: bold; cursor: pointer; animation: pulse 2s infinite; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+
+        /* واجهة التطبيق المدمجة */
+        #main-content { display: none; width: 90%; max-width: 420px; text-align: center; opacity: 0; transition: 1s; }
         .main-card { background: white; border-radius: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); overflow: hidden; border: 1px solid #eee; }
         .hero-area { background: var(--pi-purple); color: white; padding: 40px 20px; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; }
-        .shield-badge { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 20px; margin-top: 15px; }
-        .private-msg { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 15px; margin: 15px; border: 1px solid #c8e6c9; }
+        
+        .shield-badge { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 20px; margin-top: 15px; font-size: 0.9rem; }
+        .private-msg { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 15px; margin: 15px; border: 1px solid #c8e6c9; font-size: 0.85rem; }
         .triple-badge { background: #fff4e6; border: 2px dashed #ff9800; margin: 15px; padding: 20px; border-radius: 25px; color: #e65100; font-weight: bold; }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
 
-    <audio id="success-audio" loop>
+    <audio id="success-audio" loop preload="auto">
         <source src="Hamada Helal - El Nagah Ahla Hedeya(Official Video) _ حماده هلال - النجاح أحلي هدية - الكليب الرسمي _ (MP3_160K).mp3" type="audio/mpeg">
     </audio>
 
     <div id="welcome-overlay">
-        <h1>منظومة BM الذكية 🌙</h1>
-        <p id="device-status">جاري فحص أمان الجهاز...</p>
+        <h1 style="font-size: 2.2rem; margin-bottom: 5px;">Learning Joy AI 🌙</h1>
+        <p>الرابط الرسمي الموثق: aibcbecb7115.pinet.com</p>
+        <p id="device-check" style="font-size: 0.9rem; opacity: 0.8;">جاري فحص أمان المنظومة...</p>
         <br>
         <button class="play-btn" id="entry-btn" style="display:none;">دخول الإمبراطورية 🎶</button>
     </div>
@@ -38,46 +49,62 @@
                 <h2 style="margin:0;">منظومة BM الذكية</h2>
                 <div class="shield-badge">🛡️ الجلسة مؤمنة بالكامل</div>
             </div>
+            
             <div class="private-msg">🔒 خصوصيتك محمية: بياناتك سرية ولا تظهر للعامة</div>
-            <div class="triple-badge">🎉 النجاح أحلى هدية: بونص 3 أضعاف نشط!</div>
-            <div style="padding: 20px; color: #666;">أهلاً بك في إمبراطورية الـ 94 عاماً</div>
-            <div style="padding: 15px; font-size: 0.8rem; color: #aaa; background: #fafafa;">المطور: habib2000000 | حوض السيولة: Pi 300</div>
+            
+            <div class="triple-badge">
+                🎉 النجاح أحلى هدية: بونص 3 أضعاف نشط!
+            </div>
+
+            <div style="padding: 20px; color: #666; font-size: 0.9rem;">
+                أهلاً بك في عصر الـ 94 عاماً<br>
+                <b>الرابط الرسمي: aibcbecb7115.pinet.com</b>
+            </div>
+
+            <div style="padding: 15px; font-size: 0.7rem; color: #aaa; background: #fafafa; border-top: 1px solid #eee;">
+                المطور المعتمد: habib2000000 | حوض السيولة: 300 Pi
+            </div>
         </div>
     </div>
 
     <script>
         const audio = document.getElementById('success-audio');
         const entryBtn = document.getElementById('entry-btn');
-        const statusText = document.getElementById('device-status');
+        const checkText = document.getElementById('device-check');
 
-        // 1. فحص نوع الجهاز (الذكاء الاصطناعي للمنظومة)
-        function checkDevice() {
+        // ذكاء الفحص: يمنع الكمبيوتر ويسمح للموبايل
+        window.onload = function() {
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            
             if (isMobile) {
-                statusText.innerText = "تم التحقق: جهاز موبايل آمن ✅";
+                checkText.innerText = "تم التحقق: جهاز موبايل آمن ✅";
                 entryBtn.style.display = "block";
             } else {
-                statusText.innerHTML = "<span style='color:var(--gold);'>⚠️ عذراً، المنظومة مخصصة للموبايل فقط لضمان الأمان.</span>";
-                alert("لا يمكن الدخول من الكمبيوتر. يرجى استخدام متصفح Pi على الموبايل.");
+                checkText.innerHTML = "<span style='color:var(--gold);'>⚠️ المنظومة مخصصة للموبايل فقط لضمان الأمان.</span>";
+                alert("يرجى استخدام متصفح Pi على الموبايل للدخول.");
             }
-        }
+        };
 
-        // 2. تشغيل الأغنية والدخول (للموبايل فقط)
+        // دالة الدخول المدمجة
         entryBtn.addEventListener('click', function() {
-            audio.play().catch(() => console.log("تحتاج إذن تشغيل"));
-            
-            document.getElementById("welcome-overlay").style.display = "none";
-            document.getElementById("main-content").style.display = "block";
-            
-            // ربط Pi SDK
+            // تشغيل الأغنية فوراً
+            audio.play().catch(() => console.log("الصوت مفعل"));
+
+            // إخفاء شاشة الترحيب وإظهار التطبيق
+            document.getElementById("welcome-overlay").style.opacity = "0";
+            setTimeout(() => {
+                document.getElementById("welcome-overlay").style.display = "none";
+                const content = document.getElementById("main-content");
+                content.style.display = "block";
+                setTimeout(() => content.style.opacity = "1", 50);
+            }, 800);
+
+            // تفعيل Pi SDK للرابط الرسمي
             if (window.Pi) {
-                Pi.init({ version: "2.0", sandbox: false });
-                Pi.authenticate(['username'], () => {}).catch(() => {});
+                window.Pi.init({ version: "2.0", sandbox: false });
+                window.Pi.authenticate(['username'], () => {}).catch(() => {});
             }
         });
-
-        window.onload = checkDevice;
     </script>
 </body>
 </html>
+
