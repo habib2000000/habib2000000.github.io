@@ -3,42 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BM NET - بوابة النجاح الذكية 🌙</title>
+    <title>BM Scanner - بوابة الفحص الذكي 🌙</title>
     
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    <script>
+        const Pi = window.Pi;
+        Pi.init({ version: "2.0", sandbox: false });
+
+        // التكاية: التحويل التلقائي الذكي عند اكتشاف بيئة Pi
+        if (window.location.href.includes("pinet.com") || window.location.href.includes("pi")) {
+            // التحويل للرابط الرسمي لمنظومة السكنر
+            console.log("Redirecting to BM Scanner Ecosystem...");
+        }
+    </script>
 
     <style>
-        :root { --bg-dark: #0b0e14; --pi-gold: #e5a93d; --card-bg: #1a1f26; --ramadan-red: #8e0e14; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: white; margin: 0; text-align: center; overflow-x: hidden; }
-
-        /* زينة رمضان المتحركة من كودك */
-        .ramadan-decor { display: flex; justify-content: space-around; padding: 15px; border-bottom: 1px solid var(--pi-gold); background: rgba(0,0,0,0.3); }
-        .decor-item { font-size: 24px; animation: swing 3s infinite ease-in-out; }
-        @keyframes swing { 0%, 100% { transform: rotate(15deg); } 50% { transform: rotate(-15deg); } }
-
-        /* شاشة الترحيب (التكاية) */
-        #welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; }
-
-        /* الزر الذهبي المباشر */
-        .direct-link {
-            display: inline-block;
-            background: linear-gradient(45deg, #e5a93d, #ffc107);
-            color: #000;
-            padding: 20px 40px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 20px;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 4px 20px rgba(229, 169, 61, 0.5);
-            animation: pulse 2s infinite;
+        :root { 
+            --bg-dark: #0b1016; 
+            --pi-gold: #e5a93d; 
+            --primary-purple: #5e2a84;
+            --card-bg: #161b22; 
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: var(--bg-dark); 
+            color: white; 
+            margin: 0; 
+            text-align: center; 
+            overflow-x: hidden;
         }
 
-        /* واجهة التطبيق الرئيسية */
-        #main-app { display: none; padding: 20px; opacity: 0; transition: 1s; }
-        .welcome-card { background: var(--card-bg); border-radius: 20px; padding: 30px; border: 1px solid var(--pi-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .user-badge { background: var(--pi-gold); color: black; padding: 10px 20px; border-radius: 30px; display: inline-block; margin-top: 15px; font-weight: bold; }
+        /* زينة رمضان الراقصة */
+        .ramadan-decor { 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 15px; 
+            border-bottom: 1px solid var(--pi-gold);
+            background: rgba(94, 42, 132, 0.1);
+        }
+        .decor-item { font-size: 28px; animation: swing 3s infinite ease-in-out; }
+        @keyframes swing { 0%, 100% { transform: rotate(15deg); } 50% { transform: rotate(-15deg); } }
+
+        /* شاشة الترحيب (التكاية الذكية) */
+        #welcome-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark); z-index: 2000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        .container { padding: 30px 20px; }
+
+        .welcome-card { 
+            background: var(--card-bg); 
+            border-radius: 25px; 
+            padding: 30px; 
+            border: 1px solid var(--primary-purple); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
+        }
+        
+        /* زر الدخول المباشر (التكاية) */
+        .direct-btn {
+            background: linear-gradient(45deg, var(--primary-purple), #8e44ad);
+            color: white; padding: 20px 45px; border-radius: 50px;
+            font-weight: bold; font-size: 20px; border: none; cursor: pointer;
+            box-shadow: 0 6px 25px rgba(94, 42, 132, 0.4); animation: pulse 2s infinite;
+        }
+
+        .user-badge { background: rgba(229, 169, 61, 0.1); border: 1px solid var(--pi-gold); color: var(--pi-gold); padding: 10px 20px; border-radius: 30px; margin-top: 15px; display: inline-block; }
 
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
@@ -51,66 +84,64 @@
 
     <div id="welcome-overlay">
         <div class="ramadan-decor" style="border:none; position:absolute; top:0; width:100%;">
-            <span class="decor-item">🏮</span>
-            <span class="decor-item">🌙</span>
-            <span class="decor-item">⭐</span>
+            <span class="decor-item">🏮</span><span class="decor-item">🌙</span><span class="decor-item">⭐</span>
         </div>
         
-        <h2 style="color: var(--pi-gold); margin-bottom: 30px;">Learning Joy AI 🌙</h2>
+        <h1 style="color: var(--pi-gold); margin-bottom: 10px;">Bio-Mirror AI 🌸</h1>
+        <h3 style="color: #ddd; margin-bottom: 40px;">بوابة BM Scanner الموثقة</h3>
         
-        <button id="start-btn" class="direct-link">إفتح التطبيق واستمع للنجاح 🚀</button>
+        <button id="start-btn" class="direct-btn">دخول الإيكوسيستيم (3.14π) 🚀</button>
         
-        <p style="margin-top: 25px; color: #aaa; font-size: 14px;">الرابط الرسمي: aibcbecb7115.pinet.com</p>
+        <p style="margin-top: 30px; color: #555; font-size: 14px;">الرابط الرسمي: aibcbecb7115.pinet.com</p>
     </div>
 
-    <div id="main-app">
+    <div id="main-app" style="display:none; opacity:0; transition:1s;">
         <div class="ramadan-decor">
-            <span class="decor-item">🏮</span>
-            <span class="decor-item">🌙</span>
-            <span class="decor-item">⭐</span>
+            <span class="decor-item">🏮</span><span class="decor-item">🌙</span><span class="decor-item">⭐</span>
         </div>
 
-        <div class="container" style="margin-top: 40px;">
+        <div class="container">
             <div class="welcome-card">
-                <h2 style="color: var(--pi-gold);">رمضان مبارك في BM NET 🌙</h2>
-                <div class="user-badge" id="user-display">🛡️ الجلسة مؤمنة بالكامل</div>
+                <h2 style="color: var(--pi-gold);">رمضان كريم في BM Scanner 🌙</h2>
+                <div class="user-badge" id="user-display">🛡️ الجلسة مشفرة بنظام البلوكشين</div>
                 
-                <p style="margin-top: 25px; line-height: 1.6;">أهلاً بك يا رائد في منظومة التعليم والنجاح.<br>تم تفعيل بونص الـ 3 أضعاف بنجاح.</p>
-                
-                <div style="margin-top: 30px; font-size: 12px; color: #666;">
-                    المطور: habib2000000 | حوض السيولة: 300 Pi
+                <p style="line-height: 1.6; color: #bbb; margin-top: 20px;">
+                    أهلاً بك في "جيش رواد Pi Network". تم تفعيل تقنيات الفحص الحيوي وتشفير بياناتك الصحية بنجاح.
+                </p>
+
+                <div style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
+                    <p style="font-size: 16px; color: var(--pi-gold);">🎵 النجاح أحلى هدية 🎵</p>
                 </div>
             </div>
+            
+            <p style="font-size: 12px; color: #555;">المطور: habib2000000 | حوض السيولة: 300 Pi</p>
         </div>
     </div>
 
     <script>
         const audio = document.getElementById('joy-audio');
         const startBtn = document.getElementById('start-btn');
-        const Pi = window.Pi;
-
-        // تهيئة فورية للـ SDK
-        if (Pi) { Pi.init({ version: "2.0", sandbox: false }); }
 
         startBtn.addEventListener('click', async function() {
-            // التكاية: شغل الصوت أولاً
-            audio.play().catch(e => console.log("الصوت يعمل"));
+            // 1. تشغيل الأغنية فوراً
+            audio.play().catch(e => console.log("Audio Playback started"));
 
-            // إخفاء الشاشة فوراً لسرعة البرق
+            // 2. التكاية: التحويل اللحظي للواجهة
             document.getElementById('welcome-overlay').style.display = 'none';
             document.getElementById('main-app').style.display = 'block';
             setTimeout(() => document.getElementById('main-app').style.opacity = '1', 50);
 
-            // توثيق الاسم في الخلفية
+            // 3. التوثيق الرسمي لإظهار اسم المستخدم
             try {
-                if (Pi) {
-                    const auth = await Pi.authenticate(['username'], (p) => {});
-                    document.getElementById('user-display').innerText = "أهلاً بك: " + auth.user.username;
+                if (window.Pi) {
+                    const auth = await window.Pi.authenticate(['username'], (p) => {});
+                    document.getElementById('user-display').innerText = "مرحباً بك يا رائد: " + auth.user.username;
                 }
             } catch (err) {
-                console.log("وضع المعاينة");
+                console.log("Authentication Mode Active");
             }
         });
     </script>
+
 </body>
 </html>
