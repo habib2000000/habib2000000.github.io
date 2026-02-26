@@ -3,145 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BM Scanner - بوابة الفحص الذكي 🌙</title>
-    
+    <title>منظومة BM الذكية - الفحص الذكي</title>
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-    <script>
-        const Pi = window.Pi;
-        Pi.init({ version: "2.0", sandbox: false });
-
-        // التكاية: التحويل التلقائي الذكي عند اكتشاف بيئة Pi
-        if (window.location.href.includes("pinet.com") || window.location.href.includes("pi")) {
-            // التحويل للرابط الرسمي لمنظومة السكنر
-            console.log("Redirecting to BM Scanner Ecosystem...");
-        }
-    </script>
-
     <style>
-        :root { 
-            --bg-dark: #0b1016; 
-            --pi-gold: #e5a93d; 
-            --primary-purple: #5e2a84;
-            --card-bg: #161b22; 
-        }
+        :root { --bg-dark: #0b1016; --pi-gold: #e5a93d; --primary-purple: #5e2a84; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: white; margin: 0; text-align: center; }
         
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: var(--bg-dark); 
-            color: white; 
-            margin: 0; 
-            text-align: center; 
-            overflow-x: hidden;
-        }
-
-        /* زينة رمضان الراقصة */
-        .ramadan-decor { 
-            display: flex; 
-            justify-content: space-around; 
-            padding: 15px; 
-            border-bottom: 1px solid var(--pi-gold);
-            background: rgba(94, 42, 132, 0.1);
-        }
-        .decor-item { font-size: 28px; animation: swing 3s infinite ease-in-out; }
-        @keyframes swing { 0%, 100% { transform: rotate(15deg); } 50% { transform: rotate(-15deg); } }
-
-        /* شاشة الترحيب (التكاية الذكية) */
-        #welcome-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-dark); z-index: 2000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-
-        .container { padding: 30px 20px; }
-
-        .welcome-card { 
-            background: var(--card-bg); 
-            border-radius: 25px; 
-            padding: 30px; 
-            border: 1px solid var(--primary-purple); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 25px;
-        }
+        /* واجهة جوجل (الترحيبية) */
+        #google-view { display: none; height: 100vh; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #0b1016, #1a1f26); }
         
-        /* زر الدخول المباشر (التكاية) */
-        .direct-btn {
-            background: linear-gradient(45deg, var(--primary-purple), #8e44ad);
-            color: white; padding: 20px 45px; border-radius: 50px;
-            font-weight: bold; font-size: 20px; border: none; cursor: pointer;
-            box-shadow: 0 6px 25px rgba(94, 42, 132, 0.4); animation: pulse 2s infinite;
-        }
-
-        .user-badge { background: rgba(229, 169, 61, 0.1); border: 1px solid var(--pi-gold); color: var(--pi-gold); padding: 10px 20px; border-radius: 30px; margin-top: 15px; display: inline-block; }
-
+        /* واجهة تطبيق باي الرسمية */
+        #pi-app-view { display: none; padding: 20px; }
+        
+        .direct-btn { background: var(--pi-gold); color: black; padding: 20px 40px; border-radius: 50px; font-weight: bold; font-size: 1.2rem; border: none; cursor: pointer; animation: pulse 2s infinite; text-decoration: none; display: inline-block; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .card { background: #161b22; border-radius: 25px; padding: 30px; border: 1px solid var(--primary-purple); margin-top: 50px; }
     </style>
 </head>
 <body>
 
-    <audio id="joy-audio" loop preload="auto" playsinline>
+    <audio id="joy-audio" loop preload="auto">
         <source src="../Joy.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="welcome-overlay">
-        <div class="ramadan-decor" style="border:none; position:absolute; top:0; width:100%;">
-            <span class="decor-item">🏮</span><span class="decor-item">🌙</span><span class="decor-item">⭐</span>
-        </div>
-        
-        <h1 style="color: var(--pi-gold); margin-bottom: 10px;">Bio-Mirror AI 🌸</h1>
-        <h3 style="color: #ddd; margin-bottom: 40px;">بوابة BM Scanner الموثقة</h3>
-        
-        <button id="start-btn" class="direct-btn">دخول الإيكوسيستيم (3.14π) 🚀</button>
-        
-        <p style="margin-top: 30px; color: #555; font-size: 14px;">الرابط الرسمي: aibcbecb7115.pinet.com</p>
+    <div id="google-view">
+        <h1 style="color: var(--pi-gold);">Learning Joy AI 🌙</h1>
+        <p style="margin-bottom: 30px;">مرحباً بك في واجهة العرض الخارجية</p>
+        <button onclick="enterPi()" class="direct-btn">دخول التطبيق الرسمي 🚀</button>
+        <p style="margin-top: 20px; font-size: 0.8rem; color: #666;">سيتم إيقاف الموسيقى عند الدخول للبيئة الآمنة</p>
     </div>
 
-    <div id="main-app" style="display:none; opacity:0; transition:1s;">
-        <div class="ramadan-decor">
-            <span class="decor-item">🏮</span><span class="decor-item">🌙</span><span class="decor-item">⭐</span>
-        </div>
-
-        <div class="container">
-            <div class="welcome-card">
-                <h2 style="color: var(--pi-gold);">رمضان كريم في BM Scanner 🌙</h2>
-                <div class="user-badge" id="user-display">🛡️ الجلسة مشفرة بنظام البلوكشين</div>
-                
-                <p style="line-height: 1.6; color: #bbb; margin-top: 20px;">
-                    أهلاً بك في "جيش رواد Pi Network". تم تفعيل تقنيات الفحص الحيوي وتشفير بياناتك الصحية بنجاح.
-                </p>
-
-                <div style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
-                    <p style="font-size: 16px; color: var(--pi-gold);">🎵 النجاح أحلى هدية 🎵</p>
-                </div>
+    <div id="pi-app-view">
+        <div class="card">
+            <h2 style="color: var(--pi-gold);">بيئة BM الموثقة 🛡️</h2>
+            <p id="user-display">جاري التحقق من الهوية...</p>
+            <div style="background: rgba(229, 169, 61, 0.1); padding: 15px; border-radius: 15px; margin-top: 20px; color: var(--pi-gold);">
+                بونص الـ 3 أضعاف نشط في البيئة الرسمية
             </div>
-            
-            <p style="font-size: 12px; color: #555;">المطور: habib2000000 | حوض السيولة: 300 Pi</p>
         </div>
     </div>
 
     <script>
         const audio = document.getElementById('joy-audio');
-        const startBtn = document.getElementById('start-btn');
+        const googleView = document.getElementById('google-view');
+        const piView = document.getElementById('pi-app-view');
 
-        startBtn.addEventListener('click', async function() {
-            // 1. تشغيل الأغنية فوراً
-            audio.play().catch(e => console.log("Audio Playback started"));
-
-            // 2. التكاية: التحويل اللحظي للواجهة
-            document.getElementById('welcome-overlay').style.display = 'none';
-            document.getElementById('main-app').style.display = 'block';
-            setTimeout(() => document.getElementById('main-app').style.opacity = '1', 50);
-
-            // 3. التوثيق الرسمي لإظهار اسم المستخدم
-            try {
-                if (window.Pi) {
-                    const auth = await window.Pi.authenticate(['username'], (p) => {});
-                    document.getElementById('user-display').innerText = "مرحباً بك يا رائد: " + auth.user.username;
-                }
-            } catch (err) {
-                console.log("Authentication Mode Active");
+        // وظيفة فحص البيئة (جوجل ولا باي؟)
+        window.onload = function() {
+            const isPiBrowser = window.location.href.includes("pinet.com") || window.location.href.includes("pi");
+            
+            if (isPiBrowser) {
+                // لو جوه باي: أظهر التطبيق، وقف الموسيقى، وابدأ التوثيق
+                piView.style.display = 'block';
+                audio.pause();
+                initPiSDK();
+            } else {
+                // لو بره (جوجل): أظهر واجهة الترحيب وشغل الموسيقى
+                googleView.style.display = 'flex';
+                // الموسيقى تشتغل بضغطة المستخدم الأولى للالتزام بقوانين جوجل
+                document.body.addEventListener('click', () => audio.play(), { once: true });
             }
-        });
-    </script>
+        };
 
+        function enterPi() {
+            // التحويل للرابط الرسمي داخل متصفح باي
+            window.location.href = "pi://aibcbecb7115.pinet.com";
+        }
+
+        function initPiSDK() {
+            if (window.Pi) {
+                window.Pi.init({ version: "2.0", sandbox: false });
+                window.Pi.authenticate(['username'], (p) => {}).then(auth => {
+                    document.getElementById('user-display').innerText = "أهلاً بك يا رائد: " + auth.user.username;
+                });
+            }
+        }
+    </script>
 </body>
 </html>
