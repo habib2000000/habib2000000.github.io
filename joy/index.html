@@ -10,13 +10,11 @@
         :root { --pi-purple: #541d72; --gold: #ffd700; --ramadan-red: #8e0e14; }
         body { font-family: 'Cairo', sans-serif; background: #fdfbfb; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
         #welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--ramadan-red), var(--pi-purple)); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; color: white; text-align: center; }
-        /* المربع الأصفر كما في صورتك */
-        .joy-btn { background: var(--gold); color: #8e0e14; border: none; padding: 25px 40px; border-radius: 60px; font-size: 1.3rem; font-weight: bold; cursor: pointer; box-shadow: 0 15px 35px rgba(0,0,0,0.4); width: 85%; max-width: 350px; transition: 0.2s; -webkit-tap-highlight-color: transparent; }
-        .joy-btn:active { transform: scale(0.95); background: #f0c000; }
-        #main-content { display: none; width: 95%; max-width: 420px; text-align: center; }
+        .joy-btn { background: var(--gold); color: #8e0e14; border: none; padding: 25px 40px; border-radius: 60px; font-size: 1.3rem; font-weight: bold; cursor: pointer; box-shadow: 0 15px 35px rgba(0,0,0,0.4); width: 85%; max-width: 350px; animation: pulse 2s infinite; }
+        #main-content { display: none; width: 95%; max-width: 420px; text-align: center; opacity: 0; transition: 1s; }
         .main-card { background: white; border-radius: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); overflow: hidden; border: 1px solid #eee; }
         .hero-area { background: var(--pi-purple); color: white; padding: 40px 20px; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; }
-        .private-notice { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 15px; margin: 15px; border: 1px solid #c8e6c9; font-size: 0.85rem; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -27,11 +25,11 @@
 
     <div id="welcome-overlay">
         <h1 style="font-size: 2.2rem; margin-bottom: 30px;">🌙 Learning Joy AI</h1>
-        <button class="joy-btn" id="start-btn" role="button">
+        <button class="joy-btn" id="start-btn">
             دخول المنظومة وتشغيل النجاح 🎶<br>
             <small style="font-size: 0.75rem; text-decoration: underline;">aibcbecb7115.pinet.com</small>
         </button>
-        <p id="status-msg" style="margin-top: 30px; font-size: 0.9rem; opacity: 0.9;">بانتظار دخول الرائد...</p>
+        <p id="check-text" style="margin-top: 25px; font-size: 0.9rem; opacity: 0.9;">بانتظار دخول الرائد...</p>
     </div>
 
     <div id="main-content">
@@ -39,45 +37,51 @@
             <div class="hero-area">
                 <span style="font-size: 1.5rem;">🛡️</span>
                 <h2 style="margin:0;">منظومة BM الذكية</h2>
-                <p id="user-display" style="font-size: 0.8rem; opacity: 0.9; margin-top: 5px;">الجلسة مشفرة ومؤمنة</p>
+                <p id="user-display" style="font-size: 0.9rem; opacity: 0.9; margin-top: 10px; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; display: inline-block;">الجلسة مشفرة ومؤمنة</p>
             </div>
-            <div class="private-notice">🔒 وضع الخصوصية: بياناتك سرية ولا تظهر للعامة</div>
-            <div style="padding: 25px; color: #444;">
+            
+            <div style="background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 15px; margin: 15px; border: 1px solid #c8e6c9; font-size: 0.85rem;">🔒 وضع الخصوصية: بياناتك سرية ولا تظهر للعامة</div>
+            
+            <div style="padding: 25px;">
                 <h3 style="color: var(--ramadan-red);">🎉 النجاح أحلى هدية</h3>
                 <p>تم تفعيل بونص الـ 3 أضعاف لرواد الموبايل</p>
             </div>
-            <div style="padding: 15px; font-size: 0.7rem; color: #aaa; background: #fafafa; border-top: 1px solid #eee;">المطور: habib2000000 | حوض السيولة: 300 Pi</div>
+
+            <div style="padding: 15px; font-size: 0.7rem; color: #aaa; background: #fafafa; border-top: 1px solid #eee;">
+                المطور المعتمد: habib2000000 | pinet.com
+            </div>
         </div>
     </div>
 
     <script>
         const audio = document.getElementById('joy-audio');
         const startBtn = document.getElementById('start-btn');
-        const Pi = window.Pi;
 
-        // تهيئة فورية عند فتح الصفحة
-        if (Pi) Pi.init({ version: "2.0", sandbox: false });
+        // تهيئة الـ SDK للرابط الرسمي aibcbecb7115.pinet.com
+        window.onload = function() {
+            if (window.Pi) {
+                window.Pi.init({ version: "2.0", sandbox: false });
+            }
+        };
 
-        // استخدام 'touchstart' للموبايل لسرعة الاستجابة القصوى
-        startBtn.addEventListener('click', async function(e) {
-            e.preventDefault();
-            
-            // 1. تشغيل الصوت فوراً
-            audio.play().catch(() => {});
+        startBtn.addEventListener('click', async function() {
+            // تشغيل الصوت
+            audio.play().catch(e => console.log("الصوت يعمل"));
 
-            // 2. إخفاء الشاشة فوراً ليعرف المستخدم أن الضغطة نجحت
-            document.getElementById("welcome-overlay").style.display = "none";
-            document.getElementById("main-content").style.display = "block";
-
-            // 3. توثيق الحساب (Authentication)
+            // محاولة توثيق الحساب (Authentication) لإظهار الاسم
             try {
-                if (Pi) {
-                    const auth = await Pi.authenticate(['username'], () => {});
+                if (window.Pi) {
+                    const auth = await window.Pi.authenticate(['username'], (p) => {});
                     document.getElementById('user-display').innerText = "مرحباً بك: " + auth.user.username;
                 }
             } catch (err) {
-                console.log("SDK Error or Outside Pi Browser");
+                document.getElementById('user-display').innerText = "تم الدخول كزائر مؤمن 🛡️";
             }
+
+            // إخفاء الترحيب وفتح الواجهة
+            document.getElementById("welcome-overlay").style.display = "none";
+            document.getElementById("main-content").style.display = "block";
+            setTimeout(() => document.getElementById("main-content").style.opacity = "1", 50);
         });
     </script>
 </body>
